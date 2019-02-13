@@ -1,11 +1,5 @@
 package com.sirius.closeup.normalization.model;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.vividsolutions.jts.geom.Point;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,30 +8,18 @@ public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String preType;
+    private String nombre_completo;
+    private String nombre_abreviado;
     @ManyToOne
-    private Locality locality;
-    @JsonSerialize(using = GeometrySerializer.class)
-    @JsonDeserialize(using = GeometryDeserializer.class)
-    @Column(name = "coordinate",columnDefinition="Geometry(Point,4326)")
-    private Point coordinate;
+    private Locality id_localidad;
 
     public Street() {
     }
 
-    public Street(String name, String preType, Locality locality) {
-        this.name = name;
-        this.preType = preType;
-        this.locality = locality;
-        this.coordinate = null;
-    }
-
-    public Street(String name, String preType, Locality locality, Point coordinate) {
-        this.name = name;
-        this.preType = preType;
-        this.locality = locality;
-        this.coordinate = coordinate;
+    public Street(String nombre_completo, String nombre_abreviado, Locality id_localidad) {
+        this.nombre_completo = nombre_completo;
+        this.nombre_abreviado = nombre_abreviado;
+        this.id_localidad = id_localidad;
     }
 
     public Long getId() {
@@ -48,43 +30,27 @@ public class Street {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre_completo() {
+        return nombre_completo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre_completo(String nombre_completo) {
+        this.nombre_completo = nombre_completo;
     }
 
-    public Locality getLocality() {
-        return locality;
+    public String getNombre_abreviado() {
+        return nombre_abreviado;
     }
 
-    public void setLocality(Locality locality) {
-        this.locality = locality;
+    public void setNombre_abreviado(String nombre_abreviado) {
+        this.nombre_abreviado = nombre_abreviado;
     }
 
-    public String getPreType() {
-        return preType;
+    public Locality getId_localidad() {
+        return id_localidad;
     }
 
-    public void setPreType(String preType) {
-        this.preType = preType;
-    }
-
-    public Point getCoordinate() {
-        return coordinate;
-    }
-
-    public void setCoordinate(Point coordinate) {
-        this.coordinate = coordinate;
-    }
-
-    public String toString(){
-        if(preType == null){
-            return name;
-        }else {
-            return preType + " " + name;
-        }
+    public void setId_localidad(Locality id_localidad) {
+        this.id_localidad = id_localidad;
     }
 }
