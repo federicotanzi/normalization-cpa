@@ -9,14 +9,15 @@ public class Locality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String id_cpa;
+    @ManyToOne
+    private Cpa id_cpa;
     @ManyToOne
     private SubRegion id_paraje;
 
     public Locality() {
     }
 
-    public Locality(String nombre, String id_cpa, SubRegion id_paraje) {
+    public Locality(String nombre, Cpa id_cpa, SubRegion id_paraje) {
         this.nombre = nombre;
         this.id_cpa = id_cpa;
         this.id_paraje = id_paraje;
@@ -38,11 +39,11 @@ public class Locality {
         this.nombre = nombre;
     }
 
-    public String getId_cpa() {
+    public Cpa getId_cpa() {
         return id_cpa;
     }
 
-    public void setId_cpa(String id_cpa) {
+    public void setId_cpa(Cpa id_cpa) {
         this.id_cpa = id_cpa;
     }
 
