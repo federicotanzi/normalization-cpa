@@ -1,4 +1,4 @@
-package com.sirius.closeup.normalization.config;
+package com.sirius.normalization.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class SwaggerConfig {
     public Docket swaggerAddressApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sirius.closeup.normalization.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sirius.normalization.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaData());

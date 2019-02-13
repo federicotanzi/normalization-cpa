@@ -1,23 +1,20 @@
-package com.sirius.closeup.normalization.model;
+package com.sirius.normalization.model;
 
 import javax.persistence.*;
 
 @Entity
-public class SubRegion {
+public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    @ManyToOne
-    private Region id_provincia;
 
-    public SubRegion() {
+    public Region() {
     }
 
-    public SubRegion(String nombre, Region id_provincia) {
+    public Region(String nombre) {
         this.nombre = nombre;
-        this.id_provincia = id_provincia;
     }
 
     public Long getId() {
@@ -36,11 +33,4 @@ public class SubRegion {
         this.nombre = nombre;
     }
 
-    public Region getId_provincia() {
-        return id_provincia;
-    }
-
-    public void setId_provincia(Region id_provincia) {
-        this.id_provincia = id_provincia;
-    }
 }
