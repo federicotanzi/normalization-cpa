@@ -9,20 +9,20 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private Street id_calle;
+    private Street calle;
     private Long desde;
     private Long hasta;
     @ManyToOne
-    private Cpa id_cpa;
+    private Cpa cpa;
 
     public Address() {
     }
 
-    public Address(Street id_calle, Long desde, Long hasta, Cpa id_cpa) {
-        this.id_calle = id_calle;
+    public Address(Street calle, Long desde, Long hasta, Cpa cpa) {
+        this.calle = calle;
         this.desde = desde;
         this.hasta = hasta;
-        this.id_cpa = id_cpa;
+        this.cpa = cpa;
     }
 
     public Long getId() {
@@ -33,12 +33,12 @@ public class Address {
         this.id = id;
     }
 
-    public Street getId_calle() {
-        return id_calle;
+    public Street getCalle() {
+        return calle;
     }
 
-    public void setId_calle(Street id_calle) {
-        this.id_calle = id_calle;
+    public void setCalle(Street calle) {
+        this.calle = calle;
     }
 
     public Long getDesde() {
@@ -57,11 +57,11 @@ public class Address {
         this.hasta = hasta;
     }
 
-    public Cpa getId_cpa() {
-        return id_cpa;
+    public Cpa getCpa() {
+        return cpa;
     }
 
-    public void setId_cpa(Cpa id_cpa) {
-        this.id_cpa = id_cpa;
+    public void setCpa(Cpa cpa) {
+        this.cpa = cpa;
     }
 }

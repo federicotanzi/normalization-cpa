@@ -10,14 +10,14 @@ public class SubRegion {
     private Long id;
     private String nombre;
     @ManyToOne
-    private Region id_provincia;
+    private Region provincia;
 
     public SubRegion() {
     }
 
-    public SubRegion(String nombre, Region id_provincia) {
+    public SubRegion(String nombre, Region provincia) {
         this.nombre = nombre;
-        this.id_provincia = id_provincia;
+        this.provincia = provincia;
     }
 
     public Long getId() {
@@ -36,11 +36,11 @@ public class SubRegion {
         this.nombre = nombre;
     }
 
-    public Region getId_provincia() {
-        return id_provincia;
+    public Region getProvincia() {
+        return provincia;
     }
 
-    public void setId_provincia(Region id_provincia) {
-        this.id_provincia = id_provincia;
+    public void setProvincia(Region provincia) {
+        this.provincia = provincia;
     }
 }

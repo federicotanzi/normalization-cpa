@@ -8,18 +8,18 @@ public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre_completo;
-    private String nombre_abreviado;
+    private String nombreCompleto;
+    private String nombreAbreviado;
     @ManyToOne
-    private Locality id_localidad;
+    private Locality localidad;
 
     public Street() {
     }
 
-    public Street(String nombre_completo, String nombre_abreviado, Locality id_localidad) {
-        this.nombre_completo = nombre_completo;
-        this.nombre_abreviado = nombre_abreviado;
-        this.id_localidad = id_localidad;
+    public Street(String nombreCompleto, String nombreAbreviado, Locality localidad) {
+        this.nombreCompleto = nombreCompleto;
+        this.nombreAbreviado = nombreAbreviado;
+        this.localidad = localidad;
     }
 
     public Long getId() {
@@ -30,27 +30,27 @@ public class Street {
         this.id = id;
     }
 
-    public String getNombre_completo() {
-        return nombre_completo;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setNombre_completo(String nombre_completo) {
-        this.nombre_completo = nombre_completo;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
-    public String getNombre_abreviado() {
-        return nombre_abreviado;
+    public String getNombreAbreviado() {
+        return nombreAbreviado;
     }
 
-    public void setNombre_abreviado(String nombre_abreviado) {
-        this.nombre_abreviado = nombre_abreviado;
+    public void setNombreAbreviado(String nombreAbreviado) {
+        this.nombreAbreviado = nombreAbreviado;
     }
 
-    public Locality getId_localidad() {
-        return id_localidad;
+    public Locality getLocalidad() {
+        return localidad;
     }
 
-    public void setId_localidad(Locality id_localidad) {
-        this.id_localidad = id_localidad;
+    public void setLocalidad(Locality localidad) {
+        this.localidad = localidad;
     }
 }

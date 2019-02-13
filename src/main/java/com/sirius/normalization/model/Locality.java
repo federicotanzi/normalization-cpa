@@ -10,17 +10,17 @@ public class Locality {
     private Long id;
     private String nombre;
     @ManyToOne
-    private Cpa id_cpa;
+    private Cpa cpa;
     @ManyToOne
-    private SubRegion id_paraje;
+    private SubRegion paraje;
 
     public Locality() {
     }
 
-    public Locality(String nombre, Cpa id_cpa, SubRegion id_paraje) {
+    public Locality(String nombre, Cpa cpa, SubRegion paraje) {
         this.nombre = nombre;
-        this.id_cpa = id_cpa;
-        this.id_paraje = id_paraje;
+        this.cpa = cpa;
+        this.paraje = paraje;
     }
 
     public Long getId() {
@@ -39,19 +39,19 @@ public class Locality {
         this.nombre = nombre;
     }
 
-    public Cpa getId_cpa() {
-        return id_cpa;
+    public Cpa getCpa() {
+        return cpa;
     }
 
-    public void setId_cpa(Cpa id_cpa) {
-        this.id_cpa = id_cpa;
+    public void setCpa(Cpa cpa) {
+        this.cpa = cpa;
     }
 
-    public SubRegion getId_paraje() {
-        return id_paraje;
+    public SubRegion getParaje() {
+        return paraje;
     }
 
-    public void setId_paraje(SubRegion id_paraje) {
-        this.id_paraje = id_paraje;
+    public void setParaje(SubRegion paraje) {
+        this.paraje = paraje;
     }
 }
