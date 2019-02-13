@@ -8,15 +8,15 @@ public class SubRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nombre;
     @ManyToOne
     private Region id_provincia;
 
     public SubRegion() {
     }
 
-    public SubRegion(String name, Region id_provincia) {
-        this.name = name;
+    public SubRegion(String nombre, Region id_provincia) {
+        this.nombre = nombre;
         this.id_provincia = id_provincia;
     }
 
@@ -28,12 +28,12 @@ public class SubRegion {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Region getId_provincia() {

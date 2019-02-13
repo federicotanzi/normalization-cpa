@@ -8,13 +8,13 @@ public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nombre;
 
     public Region() {
     }
 
-    public Region(String name) {
-        this.name = name;
+    public Region(String nombre) {
+        this.nombre = nombre;
     }
 
     public Long getId() {
@@ -25,12 +25,12 @@ public class Region {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }
