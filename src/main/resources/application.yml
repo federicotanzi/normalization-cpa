@@ -43,7 +43,7 @@ spring:
   # Set here configurations for the database connection
   # Connection url for the database
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/address
+    url: jdbc:postgresql://127.0.0.1:5432/address-cpa
     # Username and password
     username: postgres
     password: admin
@@ -61,7 +61,7 @@ spring:
   # Set here configurations for the database connection
   # Connection url for the database
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/address
+    url: jdbc:postgresql://127.0.0.1:5432/address-cpa
     # Username and password
     username: closeup
     password: WkZg2M
