@@ -18,7 +18,7 @@ spring:
     properties:
       # Allows Hibernate to generate SQL optimized for a particular DBMS
       hibernate:
-        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc:
           lob:
             non_contextual_creation: true

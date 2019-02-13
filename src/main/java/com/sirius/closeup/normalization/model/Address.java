@@ -21,11 +21,6 @@ public class Address {
     @ManyToOne
     private Street street2;
     private String streetNumber;
-    private Boolean ruralZone;
-    @JsonSerialize(using = GeometrySerializer.class)
-    @JsonDeserialize(using = GeometryDeserializer.class)
-    @Column(name = "coordinate",columnDefinition="Geometry(Point,4326)")
-    private Point coordinate;
     private String complement;
     @Column(columnDefinition="text")
     private String additional;

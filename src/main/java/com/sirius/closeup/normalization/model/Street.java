@@ -17,7 +17,7 @@ public class Street {
     private String name;
     private String preType;
     @ManyToOne
-    private Neighborhood neighborhood;
+    private Locality locality;
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(using = GeometryDeserializer.class)
     @Column(name = "coordinate",columnDefinition="Geometry(Point,4326)")
@@ -26,17 +26,17 @@ public class Street {
     public Street() {
     }
 
-    public Street(String name, String preType, Neighborhood neighborhood) {
+    public Street(String name, String preType, Locality locality) {
         this.name = name;
         this.preType = preType;
-        this.neighborhood = neighborhood;
+        this.locality = locality;
         this.coordinate = null;
     }
 
-    public Street(String name, String preType, Neighborhood neighborhood, Point coordinate) {
+    public Street(String name, String preType, Locality locality, Point coordinate) {
         this.name = name;
         this.preType = preType;
-        this.neighborhood = neighborhood;
+        this.locality = locality;
         this.coordinate = coordinate;
     }
 
@@ -56,12 +56,12 @@ public class Street {
         this.name = name;
     }
 
-    public Neighborhood getNeighborhood() {
-        return neighborhood;
+    public Locality getLocality() {
+        return locality;
     }
 
-    public void setNeighborhood(Neighborhood neighborhood) {
-        this.neighborhood = neighborhood;
+    public void setLocality(Locality locality) {
+        this.locality = locality;
     }
 
     public String getPreType() {

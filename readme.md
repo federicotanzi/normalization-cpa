@@ -4,7 +4,6 @@
 
 * Spring Boot 2.1
 * Postgres
-* Postgis
 
 ### Swagger Ui
 
