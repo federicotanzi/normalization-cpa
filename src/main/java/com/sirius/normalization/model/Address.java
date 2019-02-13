@@ -1,4 +1,4 @@
-package com.sirius.closeup.normalization.model;
+package com.sirius.normalization.model;
 
 import javax.persistence.*;
 
@@ -14,6 +14,16 @@ public class Address {
     private Long hasta;
     @ManyToOne
     private Cpa id_cpa;
+
+    public Address() {
+    }
+
+    public Address(Street id_calle, Long desde, Long hasta, Cpa id_cpa) {
+        this.id_calle = id_calle;
+        this.desde = desde;
+        this.hasta = hasta;
+        this.id_cpa = id_cpa;
+    }
 
     public Long getId() {
         return id;

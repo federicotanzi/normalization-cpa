@@ -1,4 +1,4 @@
-package com.sirius.closeup.normalization.model;
+package com.sirius.normalization.model;
 
 import javax.persistence.*;
 

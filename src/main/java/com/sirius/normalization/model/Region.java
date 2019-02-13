@@ -1,4 +1,4 @@
-package com.sirius.closeup.normalization.model;
+package com.sirius.normalization.model;
 
 import javax.persistence.*;
 
@@ -32,5 +32,5 @@ public class Region {
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }
