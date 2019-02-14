@@ -37,22 +37,34 @@ public class GeocodeService {
                         if(geocodeNormalizer.getLocality() != null && !geocodeNormalizer.getLocality().isEmpty()) {
                             List<Locality> localityList = localityRepository.findByNombreIgnoreCaseContainingAndParaje(geocodeNormalizer.getLocality(), subRegionOptional.get());
                             if (!localityList.isEmpty()){
-                                Optional<Cpa> optionalCpa = localityList.stream().filter(x -> x.getCpa() != null).map(Locality::getCpa).findAny();
+                                Optional<Cpa> optionalCpa = localityList.stream()
+                                        .filter(x -> x.getCpa() != null)
+                                        .map(Locality::getCpa)
+                                        .findAny();
                                 if(geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreet().isEmpty() || geocodeNormalizer.getStreetNumber() == null){
                                     return optionalCpa;
                                 }else {
-                                    Optional<Street> optionalStreet =localityList.stream().map(locality -> {
-                                        Optional<Street> streetOptional = streetRepository.findFirstByNombreAbreviadoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
-                                        if (streetOptional.isPresent()) {
-                                            return streetOptional;
-                                        } else {
-                                            return streetRepository.findFirstByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
-                                        }
-                                    }).filter(Optional::isPresent).map(Optional::get).findAny();
-                                    Optional<Cpa> optionalCpaAddress = optionalStreet.map(street -> addressRepository.findByCalle(street).stream()
-                                            .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
+                                    Optional<Cpa> optionalCpaAddress = localityList.stream()
+                                            .map(locality -> {
+                                                Optional<Street> streetOptional = streetRepository.findFirstByNombreAbreviadoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                                if (streetOptional.isPresent()) {
+                                                    return streetOptional;
+                                                } else {
+                                                    return streetRepository.findFirstByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                                }
+                                            })
+                                            .filter(Optional::isPresent)
+                                            .map(Optional::get)
                                             .findAny()
-                                            .map(Address::getCpa)).filter(Optional::isPresent).map(Optional::get);
+                                            .map(street -> {
+                                                return addressRepository.findByCalle(street)
+                                                .stream()
+                                                .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
+                                                .findAny()
+                                                .map(Address::getCpa);
+                                            })
+                                            .filter(Optional::isPresent)
+                                            .map(Optional::get);
                                     if(optionalCpaAddress.isPresent()){
                                         return optionalCpaAddress;
                                     }else {
