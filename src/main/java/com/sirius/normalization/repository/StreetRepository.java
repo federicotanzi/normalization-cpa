@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface StreetRepository extends CrudRepository<Street, Long> {
     Optional<Street> findByNombreAbreviadoIgnoreCaseContainingAndLocalidad(String nombre_abreviado, Locality localidad);
+    Optional<Street> findByNombreCompletoIgnoreCaseContainingAndLocalidad(String nombre_abreviado, Locality localidad);
 }

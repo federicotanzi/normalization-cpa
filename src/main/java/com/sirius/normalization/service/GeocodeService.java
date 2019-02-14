@@ -41,20 +41,18 @@ public class GeocodeService {
                                 if(geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreetNumber() == null){
                                     return optionalCpa;
                                 }else {
-                                    Optional<Cpa> optionalCpaAddress =localityList.stream().map(locality -> {
-                                        Optional<Cpa> optionalCpaAux =  Optional.empty();
+                                    Optional<Street> optionalStreet =localityList.stream().map(locality -> {
                                         Optional<Street> streetOptional = streetRepository.findByNombreAbreviadoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
                                         if (streetOptional.isPresent()) {
-                                            List<Address> byCalle = addressRepository.findByCalle(streetOptional.get());
-                                            if (!byCalle.isEmpty()) {
-                                                optionalCpaAux = byCalle.stream()
-                                                        .filter(x -> x.getDesde() <= geocodeNormalizer.getStreetNumber() && x.getHasta() >= geocodeNormalizer.getStreetNumber())
-                                                        .findAny()
-                                                        .map(Address::getCpa);
-                                            }
+                                            return streetOptional;
+                                        } else {
+                                            return streetRepository.findByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
                                         }
-                                        return optionalCpaAux;
                                     }).filter(Optional::isPresent).map(Optional::get).findAny();
+                                    Optional<Cpa> optionalCpaAddress = optionalStreet.map(street -> addressRepository.findByCalle(street).stream()
+                                            .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
+                                            .findAny()
+                                            .map(Address::getCpa)).filter(Optional::isPresent).map(Optional::get);
                                     if(optionalCpaAddress.isPresent()){
                                         return optionalCpaAddress;
                                     }else {
