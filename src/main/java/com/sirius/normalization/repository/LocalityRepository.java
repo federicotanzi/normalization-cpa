@@ -4,8 +4,8 @@ import com.sirius.normalization.model.Locality;
 import com.sirius.normalization.model.SubRegion;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface LocalityRepository extends CrudRepository<Locality, Long> {
-    Optional<Locality> findByNombreIgnoreCaseContainingAndParaje(String nombre, SubRegion paraje);
+    List<Locality> findByNombreIgnoreCaseContainingAndParaje(String nombre, SubRegion paraje);
 }
