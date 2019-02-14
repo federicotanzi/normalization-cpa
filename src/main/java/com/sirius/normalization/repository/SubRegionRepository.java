@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface SubRegionRepository extends CrudRepository<SubRegion, Long> {
-    Optional<SubRegion> findByNombreIgnoreCaseContainingAndProvincia(String nombre, Region provincia);
+    Optional<SubRegion> findFirstByNombreIgnoreCaseContainingAndProvincia(String nombre, Region provincia);
 }
