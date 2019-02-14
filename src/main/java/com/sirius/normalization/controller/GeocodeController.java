@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders="*")
-@RequestMapping("/api/normalization")
+@RequestMapping("/api/cpa")
 public class GeocodeController {
 
     @Autowired
     private GeocodeService geocodeService;
 
-    @PostMapping
+    @PostMapping("/normalization")
     public ResponseEntity<Cpa> findCpa(@RequestBody GeocodeNormalizer geocodeNormalizer){
         return geocodeService.findCpa(geocodeNormalizer).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
