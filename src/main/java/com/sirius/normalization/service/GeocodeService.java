@@ -2,7 +2,7 @@ package com.sirius.normalization.service;
 
 import com.sirius.normalization.model.*;
 import com.sirius.normalization.repository.*;
-import com.sirius.normalization.util.GeocodeNormalizer;
+import com.sirius.normalization.util.GeocodeNormalizerCpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class GeocodeService {
     @Autowired
     private SubRegionRepository subRegionRepository;
 
-    public Optional<Cpa> findCpa(GeocodeNormalizer geocodeNormalizer){
+    public Optional<Cpa> findCpa(GeocodeNormalizerCpa geocodeNormalizer){
         if(geocodeNormalizer.getRegion() != null && !geocodeNormalizer.getRegion().isEmpty()) {
             Optional<Region> regionOptional = regionRepository.findFirstByNombreIgnoreCaseContaining(geocodeNormalizer.getRegion());
             if (regionOptional.isPresent()) {

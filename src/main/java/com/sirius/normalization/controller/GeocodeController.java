@@ -1,10 +1,9 @@
 package com.sirius.normalization.controller;
 
-import com.sirius.normalization.model.Cpa;
 import com.sirius.normalization.service.GeocodeService;
-import com.sirius.normalization.util.GeocodeNormalizer;
+import com.sirius.normalization.util.GeocodeNormalizerCpa;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +14,10 @@ public class GeocodeController {
     @Autowired
     private GeocodeService geocodeService;
 
-    @PostMapping("/normalization")
-    public ResponseEntity<Cpa> findCpa(@RequestBody GeocodeNormalizer geocodeNormalizer){
-        return geocodeService.findCpa(geocodeNormalizer).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @ResponseBody
+    @RequestMapping(value = "/normalization", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String findCpa(@RequestBody GeocodeNormalizerCpa geocodeNormalizer){
+        return geocodeService.findCpa(geocodeNormalizer).map(x -> x.getCpa()).orElse(null);
     }
 
 }

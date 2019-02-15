@@ -1,6 +1,6 @@
 package com.sirius.normalization.util;
 
-public class GeocodeNormalizer {
+public class GeocodeNormalizerCpa {
 
     private String region;
     private String subRegion;
