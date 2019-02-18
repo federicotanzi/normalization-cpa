@@ -46,6 +46,6 @@ En la carpeta **/src/main/resources** se encuentra el archivo application-dev.pr
 
 
 #### Deploy Jar
-* En el caso de hacer un cambio en el application.conf ejecutar el siguiente comando `mvn package` o `./mvnw package` 
+* En el caso de hacer un cambio en el application.conf ejecutar el siguiente comando `mvn package -B -DskipTests=true` o `./mvnw package -B -DskipTests=true` 
 * Ejecutar `java -jar normalization-cpa-1.0.0.jar --spring.profiles.active=prod` para ejecutarlo con perfil producción
 * Ejecutar `java -jar normalization-cpa-1.0.0.jar --spring.profiles.active=dev` para ejecutarlo con perfil desarrollo

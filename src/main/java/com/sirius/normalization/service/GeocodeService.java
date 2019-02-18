@@ -28,13 +28,13 @@ public class GeocodeService {
 
     public Optional<Cpa> findCpa(GeocodeNormalizerCpa geocodeNormalizer){
         if(geocodeNormalizer.getRegion() != null && !geocodeNormalizer.getRegion().isEmpty()) {
-            Optional<Region> regionOptional = regionRepository.findFirstByNombreIgnoreCaseContaining(geocodeNormalizer.getRegion());
+            Optional<Region> regionOptional = regionRepository.findFirstByNombreIgnoreCaseContaining(geocodeNormalizer.getRegionN());
             if (regionOptional.isPresent()) {
                 if(geocodeNormalizer.getSubRegion() != null && !geocodeNormalizer.getSubRegion().isEmpty()) {
-                    Optional<SubRegion> subRegionOptional = subRegionRepository.findFirstByNombreIgnoreCaseContainingAndProvincia(geocodeNormalizer.getSubRegion(), regionOptional.get());
+                    Optional<SubRegion> subRegionOptional = subRegionRepository.findFirstByNombreIgnoreCaseContainingAndProvincia(geocodeNormalizer.getSubRegionN(), regionOptional.get());
                     if (subRegionOptional.isPresent()) {
                         if(geocodeNormalizer.getLocality() != null && !geocodeNormalizer.getLocality().isEmpty()) {
-                            List<Locality> localityList = localityRepository.findByNombreIgnoreCaseContainingAndParaje(geocodeNormalizer.getLocality(), subRegionOptional.get());
+                            List<Locality> localityList = localityRepository.findByNombreIgnoreCaseContainingAndParaje(geocodeNormalizer.getLocalityN(), subRegionOptional.get());
                             if (!localityList.isEmpty()){
                                 Optional<Cpa> optionalCpa = localityList.stream()
                                         .filter(x -> x.getCpa() != null)
