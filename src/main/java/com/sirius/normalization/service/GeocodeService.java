@@ -5,7 +5,6 @@ import com.sirius.normalization.repository.*;
 import com.sirius.normalization.util.GeocodeNormalizerCpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

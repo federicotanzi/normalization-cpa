@@ -23,12 +23,6 @@ spring:
           lob:
             non_contextual_creation: true
 
-  # Upload File Size
-  servlet:
-    multipart:
-      maxFileSize: 200MB
-      maxRequestSize: 200MB
-
 ## PORT
 server:
   port: 8090
