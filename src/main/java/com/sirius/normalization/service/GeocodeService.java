@@ -58,6 +58,7 @@ public class GeocodeService {
                                             .map(street -> {
                                                 return addressRepository.findByCalle(street)
                                                 .stream()
+                                                .filter(address -> geocodeNormalizer.isPar() == address.isPar())
                                                 .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
                                                 .findAny()
                                                 .map(Address::getCpa);

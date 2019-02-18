@@ -8,6 +8,10 @@ public class GeocodeNormalizerCpa {
     private String street;
     private Long streetNumber;
 
+    public boolean isPar(){
+        return streetNumber % 2 == 0;
+    }
+
     public boolean isCF(){
         String s = region.toUpperCase();
         return s.equals("Ciudad Autonoma de Buenos Aires".toUpperCase()) || s.equals("CF") || s.equals("CAPITAL FEDERAL");

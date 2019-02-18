@@ -25,6 +25,10 @@ public class Address {
         this.cpa = cpa;
     }
 
+    public boolean isPar(){
+        return desde % 2 == 0;
+    }
+
     public Long getId() {
         return id;
     }
