@@ -12,14 +12,17 @@ public class Locality {
     @ManyToOne
     private Cpa cpa;
     @ManyToOne
+    private Cp cp;
+    @ManyToOne
     private SubRegion paraje;
 
     public Locality() {
     }
 
-    public Locality(String nombre, Cpa cpa, SubRegion paraje) {
+    public Locality(String nombre, Cpa cpa, Cp cp, SubRegion paraje) {
         this.nombre = nombre;
         this.cpa = cpa;
+        this.cp = cp;
         this.paraje = paraje;
     }
 
@@ -53,5 +56,13 @@ public class Locality {
 
     public void setParaje(SubRegion paraje) {
         this.paraje = paraje;
+    }
+
+    public Cp getCp() {
+        return cp;
+    }
+
+    public void setCp(Cp cp) {
+        this.cp = cp;
     }
 }

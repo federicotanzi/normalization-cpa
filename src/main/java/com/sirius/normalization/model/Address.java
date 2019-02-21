@@ -14,15 +14,18 @@ public class Address {
     private Long hasta;
     @ManyToOne
     private Cpa cpa;
+    @ManyToOne
+    private Cp cp;
 
     public Address() {
     }
 
-    public Address(Street calle, Long desde, Long hasta, Cpa cpa) {
+    public Address(Street calle, Long desde, Long hasta, Cpa cpa, Cp cp) {
         this.calle = calle;
         this.desde = desde;
         this.hasta = hasta;
         this.cpa = cpa;
+        this.cp = cp;
     }
 
     public boolean isPar(){
@@ -67,5 +70,13 @@ public class Address {
 
     public void setCpa(Cpa cpa) {
         this.cpa = cpa;
+    }
+
+    public Cp getCp() {
+        return cp;
+    }
+
+    public void setCp(Cp cp) {
+        this.cp = cp;
     }
 }

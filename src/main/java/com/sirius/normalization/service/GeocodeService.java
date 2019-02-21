@@ -1,10 +1,15 @@
 package com.sirius.normalization.service;
 
-import com.sirius.normalization.model.*;
+import com.sirius.normalization.model.Locality;
+import com.sirius.normalization.model.Region;
+import com.sirius.normalization.model.Street;
+import com.sirius.normalization.model.SubRegion;
 import com.sirius.normalization.repository.*;
+import com.sirius.normalization.util.CpaResult;
 import com.sirius.normalization.util.GeocodeNormalizerCpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +31,7 @@ public class GeocodeService {
     @Autowired
     private SubRegionRepository subRegionRepository;
 
-    public Optional<Cpa> findCpa(GeocodeNormalizerCpa geocodeNormalizer){
+    public Optional<CpaResult> findCpa(GeocodeNormalizerCpa geocodeNormalizer){
         if(geocodeNormalizer.getRegion() != null && !geocodeNormalizer.getRegion().isEmpty()) {
             Optional<Region> regionOptional = regionRepository.findFirstByNombreIgnoreCaseContaining(geocodeNormalizer.getRegionN());
             if (regionOptional.isPresent()) {
@@ -36,14 +41,14 @@ public class GeocodeService {
                         if(geocodeNormalizer.getLocality() != null && !geocodeNormalizer.getLocality().isEmpty()) {
                             List<Locality> localityList = localityRepository.findByNombreIgnoreCaseContainingAndParaje(geocodeNormalizer.getLocalityN(), subRegionOptional.get());
                             if (!localityList.isEmpty()){
-                                Optional<Cpa> optionalCpa = localityList.stream()
-                                        .filter(x -> x.getCpa() != null)
-                                        .map(Locality::getCpa)
-                                        .findAny();
+                                Optional<CpaResult> optionalCpa = localityList.stream()
+                                            .filter(x -> x.getCpa() != null || x.getCp() != null)
+                                            .map(x -> new CpaResult(x.getCp(),x.getCpa()))
+                                            .findAny();
                                 if(geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreet().isEmpty() || geocodeNormalizer.getStreetNumber() == null){
                                     return optionalCpa;
                                 }else {
-                                    Optional<Cpa> optionalCpaAddress = localityList.stream()
+                                    Optional<CpaResult> optionalCpaAddress = localityList.stream()
                                             .map(locality -> {
                                                 Optional<Street> streetOptional = streetRepository.findFirstByNombreAbreviadoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
                                                 if (streetOptional.isPresent()) {
@@ -57,11 +62,11 @@ public class GeocodeService {
                                             .findAny()
                                             .map(street -> {
                                                 return addressRepository.findByCalle(street)
-                                                .stream()
-                                                .filter(address -> geocodeNormalizer.isPar() == address.isPar())
-                                                .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
-                                                .findAny()
-                                                .map(Address::getCpa);
+                                                    .stream()
+                                                    .filter(address -> geocodeNormalizer.isPar() == address.isPar())
+                                                    .filter(address -> address.getDesde() <= geocodeNormalizer.getStreetNumber() && address.getHasta() >= geocodeNormalizer.getStreetNumber())
+                                                    .findAny()
+                                                    .map(x -> new CpaResult(x.getCp(),x.getCpa()));
                                             })
                                             .filter(Optional::isPresent)
                                             .map(Optional::get);
