@@ -9,6 +9,7 @@ public class GeocodeNormalizerCpa {
     private String locality;
     private String street;
     private Long streetNumber;
+    private Boolean hasIntersection;
 
     @JsonIgnore
     public boolean isPar(){
@@ -86,5 +87,13 @@ public class GeocodeNormalizerCpa {
 
     public void setStreetNumber(Long streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public Boolean getHasIntersection() {
+        return hasIntersection;
+    }
+
+    public void setHasIntersection(Boolean hasIntersection) {
+        this.hasIntersection = hasIntersection;
     }
 }

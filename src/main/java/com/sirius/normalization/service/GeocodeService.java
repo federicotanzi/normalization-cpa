@@ -39,7 +39,7 @@ public class GeocodeService {
                                     .filter(x -> x.getCpa() != null || x.getCp() != null)
                                     .map(x -> new CpaResult(x.getCp(),x.getCpa()))
                                     .findAny();
-                        if(geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreet().isEmpty() || geocodeNormalizer.getStreetNumber() == null){
+                        if(geocodeNormalizer.getHasIntersection() || geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreet().isEmpty() || geocodeNormalizer.getStreetNumber() == null){
                             return optionalCpa;
                         }else {
                             Optional<CpaResult> optionalCpaAddress = localityList.stream()
