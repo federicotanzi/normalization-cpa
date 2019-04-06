@@ -1,5 +1,7 @@
 package com.sirius.normalization.util;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class GeocodeNormalizerCpa {
 
     private String region;
@@ -8,15 +10,18 @@ public class GeocodeNormalizerCpa {
     private String street;
     private Long streetNumber;
 
+    @JsonIgnore
     public boolean isPar(){
         return streetNumber % 2 == 0;
     }
 
+    @JsonIgnore
     public boolean isCF(){
         String s = region.toUpperCase();
         return s.equals("Ciudad Autonoma de Buenos Aires".toUpperCase()) || s.equals("CF") || s.equals("CAPITAL FEDERAL");
     }
 
+    @JsonIgnore
     public String getRegionN() {
         if(isCF()){
             return "CAPITAL FEDERAL";
@@ -30,9 +35,10 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setRegion(String region) {
-        this.region = region;
+        this.region = region.toUpperCase();
     }
 
+    @JsonIgnore
     public String getSubRegionN() {
         if(isCF()){
             return "CAPITAL FEDERAL";
@@ -46,9 +52,10 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setSubRegion(String subRegion) {
-        this.subRegion = subRegion;
+        this.subRegion = subRegion.toUpperCase();
     }
 
+    @JsonIgnore
     public String getLocalityN() {
         if(isCF()){
             return "CIUDAD AUTONOMA BUENOS AIRES";
@@ -62,7 +69,7 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setLocality(String locality) {
-        this.locality = locality;
+        this.locality = locality.toUpperCase();
     }
 
     public String getStreet() {
@@ -70,7 +77,7 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.street = street.replaceAll("1RO","1").toUpperCase();
     }
 
     public Long getStreetNumber() {

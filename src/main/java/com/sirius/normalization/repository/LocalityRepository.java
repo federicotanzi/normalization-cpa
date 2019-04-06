@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface LocalityRepository extends CrudRepository<Locality, Long> {
+    List<Locality> findByNombre(String nombre);
     List<Locality> findByNombreIgnoreCaseContainingAndParaje(String nombre, SubRegion paraje);
 }
