@@ -3,7 +3,10 @@ package com.sirius.normalization.service;
 import com.sirius.normalization.model.Locality;
 import com.sirius.normalization.model.Region;
 import com.sirius.normalization.model.Street;
-import com.sirius.normalization.repository.*;
+import com.sirius.normalization.repository.AddressRepository;
+import com.sirius.normalization.repository.LocalityRepository;
+import com.sirius.normalization.repository.RegionRepository;
+import com.sirius.normalization.repository.StreetRepository;
 import com.sirius.normalization.util.CpaResult;
 import com.sirius.normalization.util.GeocodeNormalizerCpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class GeocodeService {
@@ -48,7 +52,15 @@ public class GeocodeService {
                                         if (streetOptional.isPresent()) {
                                             return streetOptional;
                                         } else {
-                                            return streetRepository.findFirstByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                            streetOptional = streetRepository.findFirstByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                            if (streetOptional.isPresent()) {
+                                                return streetOptional;
+                                            } else {
+                                                return streetRepository.findByLocalidad(locality).stream().filter(street -> {
+                                                    String[] aux = geocodeNormalizer.getStreet().split(" ");
+                                                    return Stream.of(aux).filter(y -> street.getNombreCompleto().contains(y.replaceAll("%", "Ñ"))).count() == aux.length;
+                                                }).findAny();
+                                            }
                                         }
                                     })
                                     .filter(Optional::isPresent)
