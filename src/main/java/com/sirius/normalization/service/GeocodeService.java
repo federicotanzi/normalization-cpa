@@ -46,26 +46,25 @@ public class GeocodeService {
                         if(geocodeNormalizer.getHasIntersection() || geocodeNormalizer.getStreet() == null || geocodeNormalizer.getStreet().isEmpty() || geocodeNormalizer.getStreetNumber() == null){
                             return optionalCpa;
                         }else {
-                            Optional<CpaResult> optionalCpaAddress = localityList.stream()
+                            Stream<Street> streets = localityList.stream()
                                     .map(locality -> {
-                                        Optional<Street> streetOptional = streetRepository.findFirstByNombreAbreviadoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
-                                        if (streetOptional.isPresent()) {
-                                            return streetOptional;
+                                        List<Street> streetList = streetRepository.findByNombreAbreviadoAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                        if (!streetList.isEmpty()) {
+                                            return streetList;
                                         } else {
-                                            streetOptional = streetRepository.findFirstByNombreCompletoIgnoreCaseContainingAndLocalidad(geocodeNormalizer.getStreet(), locality);
-                                            if (streetOptional.isPresent()) {
-                                                return streetOptional;
+                                            streetList = streetRepository.findByNombreCompletoAndLocalidad(geocodeNormalizer.getStreet(), locality);
+                                            if (!streetList.isEmpty()) {
+                                                return streetList;
                                             } else {
                                                 return streetRepository.findByLocalidad(locality).stream().filter(street -> {
                                                     String[] aux = geocodeNormalizer.getStreet().split(" ");
-                                                    return Stream.of(aux).filter(y -> street.getNombreCompleto().contains(y.replaceAll("%", "Ñ"))).count() == aux.length;
-                                                }).findAny();
+                                                    return Stream.of(aux).filter(y -> street.getNombreCompleto().contains(y)).count() == aux.length;
+                                                }).collect(Collectors.toList());
                                             }
                                         }
                                     })
-                                    .filter(Optional::isPresent)
-                                    .map(Optional::get)
-                                    .findAny()
+                                    .flatMap(List::stream);
+                            Optional<CpaResult> optionalCpaAddress = streets
                                     .map(street -> {
                                         return addressRepository.findByCalle(street)
                                             .stream()
@@ -75,7 +74,8 @@ public class GeocodeService {
                                             .map(x -> new CpaResult(x.getCp(),x.getCpa()));
                                     })
                                     .filter(Optional::isPresent)
-                                    .map(Optional::get);
+                                    .map(Optional::get)
+                                    .findAny();
                             if(optionalCpaAddress.isPresent()){
                                 return optionalCpaAddress;
                             }else {

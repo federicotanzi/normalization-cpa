@@ -78,7 +78,12 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setStreet(String street) {
-        this.street = street.replaceAll("1RO","1").toUpperCase();
+        street = street.toUpperCase();
+        street = street.replaceAll("\\.",  "");
+        street = street.replaceAll("%", "Ñ");
+        street = street.replaceAll("1RO","1");
+        street = street.replaceAll("AVENIDA","AV");
+        this.street = street;
     }
 
     public Long getStreetNumber() {
