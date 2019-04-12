@@ -1,7 +1,5 @@
 package com.sirius.normalization.util;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class GeocodeNormalizerCpa {
 
     private String region;
@@ -11,26 +9,6 @@ public class GeocodeNormalizerCpa {
     private Long streetNumber;
     private Boolean hasIntersection;
 
-    @JsonIgnore
-    public boolean isPar(){
-        return streetNumber % 2 == 0;
-    }
-
-    @JsonIgnore
-    public boolean isCF(){
-        String s = region.toUpperCase();
-        return s.equals("Ciudad Autonoma de Buenos Aires".toUpperCase()) || s.equals("CF") || s.equals("CAPITAL FEDERAL");
-    }
-
-    @JsonIgnore
-    public String getRegionN() {
-        if(isCF()){
-            return "CAPITAL FEDERAL";
-        } else {
-            return region;
-        }
-    }
-
     public String getRegion() {
         return region;
     }
@@ -39,14 +17,6 @@ public class GeocodeNormalizerCpa {
         this.region = region.toUpperCase();
     }
 
-    @JsonIgnore
-    public String getSubRegionN() {
-        if(isCF()){
-            return "CAPITAL FEDERAL";
-        } else {
-            return subRegion;
-        }
-    }
 
     public String getSubRegion() {
         return subRegion;
@@ -56,14 +26,6 @@ public class GeocodeNormalizerCpa {
         this.subRegion = subRegion.toUpperCase();
     }
 
-    @JsonIgnore
-    public String getLocalityN() {
-        if(isCF()){
-            return "CIUDAD AUTONOMA BUENOS AIRES";
-        } else {
-            return locality;
-        }
-    }
 
     public String getLocality() {
         return locality;
@@ -78,12 +40,7 @@ public class GeocodeNormalizerCpa {
     }
 
     public void setStreet(String street) {
-        street = street.toUpperCase();
-        street = street.replaceAll("\\.",  "");
-        street = street.replaceAll("%", "Ñ");
-        street = street.replaceAll("1RO","1");
-        street = street.replaceAll("AVENIDA","AV");
-        this.street = street;
+        this.street = street.toUpperCase();
     }
 
     public Long getStreetNumber() {
