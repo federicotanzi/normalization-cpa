@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class GeocodeService {
@@ -80,10 +79,26 @@ public class GeocodeService {
         if (streetList.isEmpty()) {
             streetList = streetRepository.findByNombreCompletoAndLocalidad(street, locality);
             if (streetList.isEmpty()) {
-                streetList = streetRepository.findByLocalidad(locality).stream().filter(streetAux -> {
-                    String[] aux = street.split(" ");
-                    return Stream.of(aux).filter(y -> streetAux.getNombreCompleto().contains(y)).count() == aux.length;
+                List<Street> byLocalidad = streetRepository.findByLocalidad(locality);
+                String[] splitStreet = street.split(" ");
+                streetList = byLocalidad.stream().filter(streetAux -> {
+                    for (String s : splitStreet) {
+                        if(!streetAux.getNombreCompleto().contains(s)){
+                            return false;
+                        }
+                    }
+                    return true;
                 }).collect(Collectors.toList());
+                if (streetList.isEmpty()) {
+                    streetList = byLocalidad.stream().filter(streetAux -> {
+                        for (String s : splitStreet) {
+                            if(!streetAux.getNombreAbreviado().contains(s)){
+                                return false;
+                            }
+                        }
+                        return true;
+                    }).collect(Collectors.toList());
+                }
             }
         }
         return streetList;
