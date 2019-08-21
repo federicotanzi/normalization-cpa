@@ -7,7 +7,6 @@ public class GeocodeNormalizerCpaResult {
     private String locality;
     private String street;
     private Long streetNumber;
-    private Boolean hasIntersection;
 
     public static GeocodeNormalizerCpaResult newInstance(GeocodeNormalizerCpa geocodeNormalizerCpa) {
         GeocodeNormalizerCpaResult g = new GeocodeNormalizerCpaResult();
@@ -65,7 +64,6 @@ public class GeocodeNormalizerCpaResult {
         g.setLocality(localityAux);
         g.setStreet(streetAux);
         g.setStreetNumber(geocodeNormalizerCpa.getStreetNumber());
-        g.setHasIntersection(geocodeNormalizerCpa.getHasIntersection());
         return g;
     }
 
@@ -115,14 +113,6 @@ public class GeocodeNormalizerCpaResult {
 
     public void setStreetNumber(Long streetNumber) {
         this.streetNumber = streetNumber;
-    }
-
-    public Boolean getHasIntersection() {
-        return hasIntersection;
-    }
-
-    public void setHasIntersection(Boolean hasIntersection) {
-        this.hasIntersection = hasIntersection;
     }
 
 }
